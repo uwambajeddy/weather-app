@@ -71,7 +71,7 @@ weather-app/
 ## **Demo**
 
 ### **Live Demo**
-[View Live Application](#) (Replace `#` with your live deployment link)
+[View Live Application](https://www.leftie.tech)
 
 ### **Preview**
 ![Weather App Screenshot](#) (Replace `#` with a screenshot link)
