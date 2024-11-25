@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Hub</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <header>
+        <h1>Weather Hub</h1>
+    </header>
+    <main>
+        <section class="search-section">
+            <input type="text" id="city" placeholder="Enter city" />
+            <button id="search-button">Get Weather</button>
+        </section>
+        <section id="weather-results">
+            <div id="current-weather">
+                <img src="https://cdn-icons-png.flaticon.com/512/1163/1163657.png" id="weather-icon" alt="Weather Icon" />
+                <h2 id="city-name"></h2>
+                <p id="temperature"></p>
+                <p id="description"></p>
+            </div>
+            <div id="hourly-forecast">
+                <h3>Hourly Forecast</h3>
+                <div id="forecast-container"></div>
+            </div>
+        </section>
+        <div id="loader" class="hidden">
+            <div class="spinner"></div>
+        </div>
+        
+    </main>
+    <footer>
+        <p>Powered by OpenWeatherMap API</p>
+    </footer>
+    <script src="./script.js"></script>
+</body>
+
+</html>
