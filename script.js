@@ -11,7 +11,7 @@ function hideLoader() {
 }
 
 async function getWeather() {
-    const apiKey = 'c835bc7154c7e5247467573ff69f50a3';
+    const apiKey = 'your_api_key_here';
 
     const city = document.getElementById('city').value;
 
