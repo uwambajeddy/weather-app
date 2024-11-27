@@ -170,7 +170,7 @@ weather-app/
 
 ## **Challenge**
 
-I encountered no challenge as this was not my first time working on something like this.
+I encountered no challenge.
 
 ---
 
