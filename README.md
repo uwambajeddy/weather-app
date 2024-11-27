@@ -46,6 +46,96 @@ Simply open the `index.html` file in any modern web browser.
 
 ---
 
+## **Deployment Instructions**
+
+### **Server Requirements**
+To deploy this application, you need three Linux-based servers:
+1. **Server 1**: Web Server 1 - Hosts the application.
+2. **Server 2**: Web Server 2 - Hosts the application for redundancy.
+3. **Server 3**: Load Balancer - Distributes traffic between the two web servers.
+
+### **Deployment Steps**
+
+#### **1. Access the Servers**
+Use SSH to connect to each server:
+```bash
+ssh ubuntu@<IP_ADDRESS>
+```
+
+#### **2. Update and Install Dependencies**
+On all servers:
+```bash
+sudo apt update && sudo apt upgrade -y
+sudo apt install nginx -y
+```
+
+#### **3. Deploy the Application**
+1. On both web servers:
+   - Create a directory for the app:
+     ```bash
+     sudo mkdir -p /var/www/weather-app
+     ```
+   - Transfer the project files (`index.html`, `style.css`, `script.js`) to the directory.
+   - Set up NGINX to serve the app:
+     ```bash
+     sudo vi /etc/nginx/sites-available/weather-app
+     ```
+     Add:
+     ```nginx
+     server {
+         listen 80;
+         root /var/www/weather-app;
+         index index.html;
+
+         location / {
+             try_files $uri $uri/ =404;
+         }
+     }
+     ```
+   - Enable the site and restart NGINX:
+     ```bash
+     sudo ln -s /etc/nginx/sites-available/weather-app /etc/nginx/sites-enabled/
+     sudo nginx -t
+     sudo service nginx restart
+     ```
+
+2. Verify deployment by accessing the web server IPs in a browser.
+
+#### **4. Set Up the Load Balancer**
+1. On the load balancer server:
+   - Configure NGINX for load balancing:
+     ```bash
+     sudo vi /etc/nginx/sites-available/load-balancer
+     ```
+     Add:
+     ```nginx
+     upstream weather_app {
+         server <web-01-ip>;
+         server <web-02-ip>;
+     }
+
+     server {
+         listen 80;
+
+         location / {
+             proxy_pass http://weather_app;
+             proxy_set_header Host $host;
+             proxy_set_header X-Real-IP $remote_addr;
+             proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+         }
+     }
+     ```
+   - Enable the configuration:
+     ```bash
+     sudo ln -s /etc/nginx/sites-available/load-balancer /etc/nginx/sites-enabled/
+     sudo nginx -t
+      sudo service nginx restart
+     ```
+
+2. Verify load balancing by accessing the load balancer IP in a browser.
+
+---
+
 ## **Project Structure**
 
 ```
@@ -71,10 +161,16 @@ weather-app/
 ## **Demo**
 
 ### **Live Demo**
-[View Live Application](https://www.leftie.tech)
+[View Live Application](http://23.22.70.36)
 
 ### **Preview**
 ![Weather App Screenshot](#) (Replace `#` with a screenshot link)
+
+---
+
+## **Challenge**
+
+I encountered no challenge as this was not my first time working on something like this.
 
 ---
 
@@ -84,27 +180,6 @@ weather-app/
 - **Endpoints Used**:
   - Current Weather: `https://api.openweathermap.org/data/2.5/weather`
   - Hourly Forecast: `https://api.openweathermap.org/data/2.5/forecast`
-
----
-
-## **Future Enhancements**
-
-- Add user location detection to fetch weather automatically.
-- Implement additional features like daily forecasts, weather alerts, and air quality indices.
-- Introduce localization for different languages.
-- Optimize performance with caching mechanisms.
-
----
-
-## **Contributing**
-
-Contributions are welcome! Please fork this repository, make your changes, and submit a pull request.
-
----
-
-## **License**
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ---
 
