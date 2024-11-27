@@ -164,7 +164,7 @@ weather-app/
 [View Live Application](http://23.22.70.36)
 
 ### **Preview**
-![[Weather App Screenshot](https://github.com/user-attachments/assets/63b918fd-48bb-462c-b374-4d30dffca292)
+![Weather App Screenshot](https://github.com/user-attachments/assets/63b918fd-48bb-462c-b374-4d30dffca292)
 
 ---
 
